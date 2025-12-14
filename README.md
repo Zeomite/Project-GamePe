@@ -48,18 +48,15 @@ Before running this project, ensure you have the following installed:
    MONGODB_URI=mongodb://localhost:27017/notification_db
    REDIS_HOST=localhost
    REDIS_PORT=6379
-   JWT_SECRET=your-super-secret-jwt-key-change-in-production
+   JWT_SECRET=secret-key
    JWT_EXPIRES_IN=24h
    ```
+   My Testing MongoDB Atlas URI: `mongodb+srv://varun:12345@cluster0.xkcjn0f.mongodb.net/notification_db`
 
 4. **Start MongoDB and Redis**
    - Ensure MongoDB is running on the configured port
    - Ensure Redis is running on the configured port
 
-5. **Build the project** (optional, for production)
-   ```bash
-   npm run build
-   ```
 
 ## 🏃 Running the Project
 
