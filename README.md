@@ -51,7 +51,6 @@ Before running this project, ensure you have the following installed:
    JWT_SECRET=secret-key
    JWT_EXPIRES_IN=24h
    ```
-   My Testing MongoDB Atlas URI: `mongodb+srv://varun:12345@cluster0.xkcjn0f.mongodb.net/notification_db`
 
 4. **Start MongoDB and Redis**
    - Ensure MongoDB is running on the configured port
