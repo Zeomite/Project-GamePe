@@ -1,21 +1,10 @@
 # Real-Time Notification System
 
-A production-ready real-time notification backend system built with Node.js, TypeScript, Express, MongoDB, Redis, and WebSockets. This system provides enterprise-grade architecture with clean separation of concerns, JWT authentication, and scalable WebSocket implementation.
+A real-time notification backend system built with Node.js, TypeScript, Express, MongoDB, Redis, and WebSockets. 
 
 ## 🎯 Project Overview
 
-This notification system enables real-time communication between server and clients using WebSockets. It supports user authentication, notification management, and horizontal scaling through Redis pub/sub pattern. The system is designed with a layered architecture following repository and service patterns for maintainability and testability.
-
-### Key Features
-
-- **User Authentication**: JWT-based authentication with secure password hashing
-- **Real-time Notifications**: WebSocket-based real-time notification delivery
-- **Scalable Architecture**: Redis adapter for multi-instance Socket.io deployment
-- **RESTful API**: Complete REST API for notification management
-- **Pagination & Filtering**: Efficient notification retrieval with pagination and filtering
-- **Type Safety**: Full TypeScript implementation with strict type checking
-- **Error Handling**: Comprehensive error handling with meaningful messages
-- **Graceful Shutdown**: Proper cleanup of connections and resources
+This notification system enables real-time communication between server and clients using WebSockets. It supports user authentication, notification management, and horizontal scaling through Redis pub/sub pattern.
 
 ## 🛠 Tech Stack
 
@@ -42,7 +31,7 @@ Before running this project, ensure you have the following installed:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Zeomite/Project-GamePe.git
    cd Project-GamePe
    ```
 
@@ -82,7 +71,6 @@ This starts the server with hot-reload using `ts-node-dev`.
 
 ### Production Mode
 ```bash
-npm run build
 npm start
 ```
 
@@ -421,7 +409,7 @@ socket.on('error', (error) => {
    - Get User Notifications
    - Mark Notification as Read
 
-### cURL Examples
+### cURLs
 
 #### Register
 ```bash
@@ -462,48 +450,6 @@ curl -X POST http://localhost:3000/api/notifications \
 curl -X GET "http://localhost:3000/api/notifications?page=1&limit=10" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
-
-## 🏗 Architecture
-
-### Design Patterns
-
-1. **Repository Pattern**: All database operations are abstracted in repository classes
-2. **Service Layer**: Business logic is separated from controllers
-3. **Middleware Pattern**: Authentication and validation handled via middleware
-4. **Dependency Injection**: Services and repositories are instantiated in controllers
-
-### Data Flow
-
-1. **HTTP Request** → Route → Middleware (Auth/Validation) → Controller
-2. **Controller** → Service → Repository → Database
-3. **Service** → Redis Pub/Sub → Socket Manager → WebSocket Client
-
-### Scalability
-
-- **Horizontal Scaling**: Redis adapter enables multiple Socket.io instances
-- **Database Indexing**: Optimized queries with proper indexes
-- **Connection Pooling**: MongoDB connection pooling for efficient resource usage
-- **Redis Pub/Sub**: Decouples notification broadcasting from HTTP requests
-
-## 🔒 Security
-
-- **Password Hashing**: bcrypt with salt rounds
-- **JWT Authentication**: Secure token-based authentication
-- **Input Validation**: All inputs validated using express-validator
-- **CORS**: Configurable CORS for cross-origin requests
-- **Error Handling**: No sensitive information exposed in error messages
-
-## ⚙️ Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `NODE_ENV` | Environment mode | `development` |
-| `PORT` | Server port | `3000` |
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/notification_db` |
-| `REDIS_HOST` | Redis host | `localhost` |
-| `REDIS_PORT` | Redis port | `6379` |
-| `JWT_SECRET` | JWT signing secret | Required |
-| `JWT_EXPIRES_IN` | JWT expiration time | `24h` |
 
 ## 📝 Assumptions
 
