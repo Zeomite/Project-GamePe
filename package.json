@@ -1,20 +1,12 @@
 {
-  "name": "realtime-notification-system",
+  "name": "project-gamepe",
   "version": "1.0.0",
-  "description": "Production-ready real-time notification backend system",
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "npm run build && node dist/server.js"
   },
-  "keywords": [
-    "notifications",
-    "websocket",
-    "realtime",
-    "nodejs",
-    "typescript"
-  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
