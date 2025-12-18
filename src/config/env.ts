@@ -26,7 +26,7 @@ export const env: EnvConfig = {
   MONGODB_URI: getEnvVar('MONGODB_URI', 'mongodb://localhost:27017/notification_db'),
   REDIS_HOST: getEnvVar('REDIS_HOST', 'localhost'),
   REDIS_PORT: parseInt(getEnvVar('REDIS_PORT', '6379'), 10),
-  JWT_SECRET: getEnvVar('JWT_SECRET', 'your-super-secret-jwt-key-change-in-production'),
+  JWT_SECRET: getEnvVar('JWT_SECRET', 'secretkey123'),
   JWT_EXPIRES_IN: getEnvVar('JWT_EXPIRES_IN', '24h')
 };
 

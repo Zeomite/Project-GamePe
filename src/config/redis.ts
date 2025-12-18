@@ -4,11 +4,7 @@ import { logger } from '../utils/logger.util';
 
 export const redisClient = new Redis({
   host: env.REDIS_HOST,
-  port: env.REDIS_PORT,
-  retryStrategy: (times) => {
-    const delay = Math.min(times * 50, 2000);
-    return delay;
-  },
+  port: env.REDIS_PORT
 });
 
 redisClient.on('connect', () => {

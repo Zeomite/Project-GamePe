@@ -26,7 +26,7 @@ export class NotificationSocket {
       if (channel === 'notifications') {
         try {
           const notification = JSON.parse(message);
-          this.socketManager.emitToUser(notification.userId, 'notification', notification);
+          this.emitNotification(notification);
         } catch (error) {
           logger.error('Error parsing notification message:', error);
         }
@@ -38,7 +38,7 @@ export class NotificationSocket {
     });
   }
 
-  public emitNotification(notification: INotification): void {
+  emitNotification(notification: INotification): void {
     const notificationData = {
       id: notification._id.toString(),
       userId: notification.userId.toString(),

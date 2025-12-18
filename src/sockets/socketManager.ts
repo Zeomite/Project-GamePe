@@ -91,9 +91,5 @@ export class SocketManager {
   public getIO(): SocketIOServer {
     return this.io;
   }
-
-  public getConnectedUsersCount(): number {
-    return this.userSockets.size;
-  }
 }
 
