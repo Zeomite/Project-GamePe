@@ -41,7 +41,7 @@ export class NotificationService {
   private async broadcastNotification(notification: INotification): Promise<void> {
     try {
       const notificationData = {
-        id: notification._id.toString(),
+        id: String(notification._id),
         userId: notification.userId.toString(),
         title: notification.title,
         message: notification.message,

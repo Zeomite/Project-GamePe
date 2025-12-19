@@ -3,6 +3,7 @@ import { redisClient } from '../config/redis';
 import { logger } from '../utils/logger.util';
 import { INotification } from '../models/notification.model';
 
+
 export class NotificationSocket {
   private socketManager: SocketManager;
 
@@ -40,8 +41,8 @@ export class NotificationSocket {
 
   emitNotification(notification: INotification): void {
     const notificationData = {
-      id: notification._id.toString(),
-      userId: notification.userId.toString(),
+      id: notification._id,
+      userId: notification.userId,
       title: notification.title,
       message: notification.message,
       type: notification.type,
