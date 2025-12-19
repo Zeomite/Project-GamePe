@@ -37,40 +37,61 @@ const startServer = async (): Promise<void> => {
   }
 };
 
+let isShuttingDown = false;
+
 const gracefulShutdown = async (signal: string): Promise<void> => {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
   logger.info(`${signal} received. Starting graceful shutdown...`);
 
-  return new Promise((resolve) => {
-    httpServer.close(async () => {
-      logger.info('HTTP server closed');
+  const timeout = setTimeout(() => {
+    logger.error('Forced shutdown after timeout');
+    process.exit(1);
+  }, 10000);
 
-      try {
-        if (socketManager) {
-          socketManager.getIO().close();
-          logger.info('Socket.io server closed');
-        }
+  try {
+    if (socketManager) {
+      socketManager.getIO().close();
+      logger.info('Socket.io server closed');
+    }
 
-        await disconnectDatabase();
-        await disconnectRedis();
-
-        logger.info('Graceful shutdown completed');
+    await new Promise<void>((resolve, reject) => {
+      httpServer.close((err) => {
+        if (err) return reject(err);
+        logger.info('HTTP server closed');
         resolve();
-        process.exit(0);
-      } catch (error) {
-        logger.error('Error during shutdown:', error);
-        process.exit(1);
-      }
+      });
     });
 
-    setTimeout(() => {
-      logger.error('Forced shutdown after timeout');
-      process.exit(1);
-    }, 10000);
-  });
+    await disconnectDatabase();
+    await disconnectRedis();
+
+    clearTimeout(timeout);
+    logger.info('Graceful shutdown completed');
+  } catch (err) {
+    clearTimeout(timeout);
+    throw err;
+  }
 };
 
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', async () => {
+  try {
+    await gracefulShutdown('SIGTERM');
+    process.exit(0);
+  } catch {
+    process.exit(1);
+  }
+});
+
+process.on('SIGINT', async() => {
+  try {
+    await gracefulShutdown('SIGINT');
+    process.exit(0);
+  } catch {
+    process.exit(1);
+  }
+});
 
 process.on('unhandledRejection', (reason, promise) => {
   logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
